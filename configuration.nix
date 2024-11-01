@@ -103,18 +103,24 @@
   environment.systemPackages = with pkgs; [
     bun
     chromium
+    clang
     firefox
     evolution # emails
     ffmpeg-full
+    gcc
     git
     graphviz
+    httpie
     imagemagick
     jq
     libreoffice-fresh
     nodejs
     obs-studio
-    php
+    openssl_3_3
+    php83
+    php83Packages.composer
     pnpm
+    rustup
     vim
     vlc
     vscode
@@ -159,11 +165,11 @@
       };
       history = {
         size = 10000;
-        path = "~/.config/zsh/history";
+        path = "/home/lucas/zsh/history";
       };    
       oh-my-zsh = {
         enable = true;
-        plugins = [ "git" "history" "symfony" ];
+        plugins = [ "bun" "composer" "copyfile" "copybuffer" "git" "history" "symfony" "dirhistory" ];
       };
       plugins = [
         {
