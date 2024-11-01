@@ -84,7 +84,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.lucas = {
     isNormalUser = true;
-    description = "Lucas Delobelle";
+    description = "Lucas D.";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
     #  thunderbird
@@ -104,13 +104,22 @@
     bun
     chromium
     firefox
+    evolution # emails
+    ffmpeg-full
     git
+    graphviz
+    imagemagick
+    jq
+    libreoffice-fresh
     nodejs
+    obs-studio
     php
     pnpm
     vim
+    vlc
     vscode
     wget
+    yarn
     zsh
     zsh-powerlevel10k
   ];
@@ -136,7 +145,6 @@
 
   # ZSH
   programs.zsh.enable = true;
-  programs.zsh.promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
   users.defaultUserShell = pkgs.zsh;
 
   home-manager.users.lucas = { pkgs, ... }: {
@@ -157,11 +165,24 @@
         enable = true;
         plugins = [ "git" "history" "symfony" ];
       };
+      plugins = [
+        {
+	  name = "powerlevel10k";
+	  src = pkgs.zsh-powerlevel10k;
+	  file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+        }
+	{
+          name = "powerlevel10k-config";
+    	  src = ./p10k-config;
+	  file = "p10k.zsh";
+	}
+      ];
     };
 
     home.stateVersion = "24.05";
   };
 
+  # GIT
   programs.git.config = {
     init = {
       defaultBranch = "main";
