@@ -43,6 +43,14 @@
     LC_TIME = "fr_FR.UTF-8";
   };
 
+  i18n.inputMethod = {
+    enabled = "fcitx5";
+    fcitx5.addons = with pkgs; [
+      fcitx5-gtk
+      fcitx5-chewing
+    ];
+  };
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
