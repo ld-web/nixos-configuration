@@ -112,6 +112,7 @@
     bun
     chromium
     clang
+    discord
     firefox
     evolution # emails
     ffmpeg-full
@@ -129,6 +130,8 @@
     php83Packages.composer
     pnpm
     rustup
+    symfony-cli
+    vesktop
     vim
     vlc
     vscode
