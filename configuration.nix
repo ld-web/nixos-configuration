@@ -108,7 +108,21 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs;
+  let
+    php83 = pkgs.php83.buildEnv {
+      extensions = ({ enabled, all }: enabled ++ (with all; [
+        xdebug
+      ]));
+      extraConfig = ''
+        post_max_size = 2G
+        upload_max_filesize = 1800M
+        xdebug.start_with_request=yes
+        xdebug.mode=develop,debug,coverage
+        xdebug.log_level=0
+      '';
+    };
+  in [
     bun
     chromium
     clang
@@ -123,6 +137,7 @@
     imagemagick
     jq
     libreoffice-fresh
+    lshw # Hardware information
     nodejs
     obs-studio
     openssl_3_3
