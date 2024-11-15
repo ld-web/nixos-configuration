@@ -58,6 +58,15 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  # GNOME
+  environment.gnome.excludePackages = (with pkgs; [
+    gnome-tour
+  ]) ++ (with pkgs.gnome; [
+    geary # emails
+    gnome-music
+    epiphany # Web
+  ]);
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "fr";
@@ -126,12 +135,21 @@
     bun
     chromium
     clang
+    dialog # displays dialog boxes from shell
     discord
     firefox
     evolution # emails
     ffmpeg-full
     gcc
     git
+    gnomeExtensions.system-monitor
+    gnomeExtensions.alttab-scroll-workaround
+    gnomeExtensions.appindicator
+    gnomeExtensions.just-perfection
+    gnomeExtensions.launch-new-instance
+    gnomeExtensions.lock-keys
+    gnomeExtensions.notification-timeout
+    gnomeExtensions.panel-world-clock-lite
     graphviz
     httpie
     imagemagick
@@ -141,9 +159,13 @@
     nodejs
     obs-studio
     openssl_3_3
+    openvpn
     php83
     php83Packages.composer
     pnpm
+    python3
+    python311Packages.pip
+    python311Packages.setuptools
     rustup
     symfony-cli
     vesktop
@@ -169,6 +191,7 @@
     "gighmmpiobklfepjocnamgkkbiglidom" # AdBlock
     "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark reader
     "mlomiejdfkolichcflejclcbmpeaniij" # Ghostery
+    "gphhapmejobijbbhgpjhcjognlahblep" # Gnome Shell integration
     "ldmgbgaoglmaiblpnphffibpbfchjaeg" # New TongWenTang
     "fmkadmapgofadopljbjfkapdkoienihi" # React Developer Tools
     "pejkokffkapolfffcgbmdmhdelanoaih" # Unsplash Instant
@@ -180,6 +203,24 @@
   users.defaultUserShell = pkgs.zsh;
 
   home-manager.users.lucas = { pkgs, ... }: {
+    # GNOME Extensions
+    dconf = {
+      enable = true;
+      settings."org/gnome/shell" = {
+        disable-user-extensions = false;
+        enabled-extensions = with pkgs.gnomeExtensions; [
+          system-monitor.extensionUuid
+          alttab-scroll-workaround.extensionUuid
+          appindicator.extensionUuid
+          just-perfection.extensionUuid
+          launch-new-instance.extensionUuid
+          lock-keys.extensionUuid
+          notification-timeout.extensionUuid
+          panel-world-clock-lite.extensionUuid
+        ];
+      };
+    };
+
     programs.zsh = {
       enable = true;
       enableCompletion = true;
@@ -209,6 +250,15 @@
 	  file = "p10k.zsh";
 	}
       ];
+    };
+
+    programs.vim = {
+      enable = true;
+      extraConfig = ''
+        set nu
+        syn on
+        colo desert
+      '';
     };
 
     home.stateVersion = "24.05";
