@@ -153,6 +153,7 @@
     graphviz
     httpie
     imagemagick
+    inxi # System information tool
     jq
     libreoffice-fresh
     lshw # Hardware information
@@ -160,6 +161,7 @@
     obs-studio
     openssl_3_3
     openvpn
+    pciutils # Programs for inspecting and manipulating configuration of PCI devices
     php83
     php83Packages.composer
     pnpm
@@ -183,6 +185,12 @@
     enableDefaultPackages = true;
     packages = with pkgs; [
       (nerdfonts.override { fonts = [ "FiraCode" "Meslo" ]; })
+      awesome
+      corefonts
+      liberation_ttf
+      noto-fonts
+      noto-fonts-cjk-sans
+      roboto
     ];
   };
 
@@ -276,6 +284,16 @@
   virtualisation.docker.rootless = {
     enable = true;
     setSocketVariable = true;
+  };
+
+  # NVIDIA Graphics
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.open = false; # Use proprietary drivers
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production;
+  hardware.nvidia.prime = {
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:1:0:0";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
