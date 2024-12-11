@@ -49,6 +49,7 @@
       fcitx5-gtk
       fcitx5-chewing
     ];
+    fcitx5.waylandFrontend = true;
   };
 
   # Enable the X11 windowing system.
@@ -135,6 +136,7 @@
     bun
     chromium
     clang
+    code-cursor
     dialog # displays dialog boxes from shell
     discord
     firefox
@@ -291,10 +293,18 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = false; # Use proprietary drivers
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production;
+  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.powerManagement.enable = false;
+  hardware.nvidia.powerManagement.finegrained = false;
   hardware.nvidia.prime = {
+    sync.enable = true;
+
     intelBusId = "PCI:0:2:0";
     nvidiaBusId = "PCI:1:0:0";
   };
+
+  # To make Chromium work on Wayland
+  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
