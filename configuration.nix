@@ -103,7 +103,7 @@
   users.users.lucas = {
     isNormalUser = true;
     description = "Lucas D.";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -167,6 +167,7 @@
     php83
     php83Packages.composer
     pnpm
+    protonvpn-cli_2
     python3
     python311Packages.pip
     python311Packages.setuptools
