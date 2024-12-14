@@ -143,6 +143,7 @@
     evolution # emails
     ffmpeg-full
     gcc
+    gimp
     git
     gnomeExtensions.system-monitor
     gnomeExtensions.alttab-scroll-workaround
@@ -229,6 +230,16 @@
           notification-timeout.extensionUuid
           panel-world-clock-lite.extensionUuid
         ];
+      };
+      settings."org/gnome/settings-daemon/plugins/media-keys" = {
+        custom-keybindings = [
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+        ];
+      };
+      settings."org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+        name = "Launch Console";
+        command = "kgx";
+        binding = "<Super>t";
       };
     };
 
