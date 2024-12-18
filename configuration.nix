@@ -112,6 +112,7 @@
   # Install firefox.
   programs.firefox.enable = true;
   programs.chromium.enable = true;
+  programs.nix-ld.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
