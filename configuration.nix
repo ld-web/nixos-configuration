@@ -116,6 +116,11 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.packageOverrides = pkgs: {
+    unstable = import <nixos-unstable> {
+      config = config.nixpkgs.config;
+    };
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -134,10 +139,10 @@
       '';
     };
   in [
-    bun
+    unstable.bun
     chromium
     clang
-    code-cursor
+    unstable.code-cursor
     dialog # displays dialog boxes from shell
     discord
     firefox
@@ -174,11 +179,11 @@
     python311Packages.pip
     python311Packages.setuptools
     rustup
-    symfony-cli
+    unstable.symfony-cli
     vesktop
     vim
     vlc
-    vscode
+    unstable.vscode
     wget
     yarn
     zsh
