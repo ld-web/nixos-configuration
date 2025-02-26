@@ -113,6 +113,12 @@
   programs.firefox.enable = true;
   programs.chromium.enable = true;
   programs.nix-ld.enable = true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -129,6 +135,7 @@
     php83 = pkgs.php83.buildEnv {
       extensions = ({ enabled, all }: enabled ++ (with all; [
         xdebug
+        xsl
       ]));
       extraConfig = ''
         post_max_size = 2G
@@ -164,6 +171,7 @@
     imagemagick
     inxi # System information tool
     jq
+    kdePackages.kdenlive
     libreoffice-fresh
     lshw # Hardware information
     nodejs
@@ -172,8 +180,10 @@
     openvpn
     pciutils # Programs for inspecting and manipulating configuration of PCI devices
     php83
-    php83Packages.composer
+    # php83Packages.composer
+    (php83.withExtensions ({ enabled, all }: enabled ++ [ all.xsl ])).packages.composer
     pnpm
+    postman
     protonvpn-cli_2
     python3
     python311Packages.pip
@@ -185,7 +195,7 @@
     vlc
     unstable.vscode
     wget
-    yarn
+    yarn-berry
     zsh
     zsh-powerlevel10k
   ];
@@ -301,10 +311,10 @@
 
   # Docker
   virtualisation.docker.enable = true;
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
-  };
+  #virtualisation.docker.rootless = {
+  #  enable = true;
+  #  setSocketVariable = true;
+  #};
 
   # NVIDIA Graphics
   hardware.graphics.enable = true;
@@ -342,6 +352,13 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  networking.firewall = {
+    enable = true;
+    extraCommands = ''
+      iptables -I INPUT 1 -s 172.16.0.0/12 -p tcp -d 172.17.0.1 -j ACCEPT
+      iptables -I INPUT 2 -s 172.16.0.0/12 -p udp -d 172.17.0.1 -j ACCEPT
+    '';
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
