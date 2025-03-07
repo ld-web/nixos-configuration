@@ -166,6 +166,7 @@
     gnomeExtensions.lock-keys
     gnomeExtensions.notification-timeout
     gnomeExtensions.panel-world-clock-lite
+    gnomeExtensions.color-picker
     graphviz
     httpie
     imagemagick
@@ -222,7 +223,7 @@
     "gphhapmejobijbbhgpjhcjognlahblep" # Gnome Shell integration
     "ldmgbgaoglmaiblpnphffibpbfchjaeg" # New TongWenTang
     "fmkadmapgofadopljbjfkapdkoienihi" # React Developer Tools
-    "pejkokffkapolfffcgbmdmhdelanoaih" # Unsplash Instant
+    "fdnpgodccdfgofepkclnopmbnacjkbnj" # Pexels new tab images
     "gppongmhjkpfnbhagpmjfkannfbllamg" # Wappalyzer
   ];
 
@@ -245,6 +246,7 @@
           lock-keys.extensionUuid
           notification-timeout.extensionUuid
           panel-world-clock-lite.extensionUuid
+          color-picker.extensionUuid
         ];
       };
       settings."org/gnome/settings-daemon/plugins/media-keys" = {
