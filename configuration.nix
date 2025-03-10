@@ -150,6 +150,7 @@
     chromium
     clang
     unstable.code-cursor
+    (callPackage ./dcsrs-to-pdf/default.nix {})
     dialog # displays dialog boxes from shell
     discord
     firefox
