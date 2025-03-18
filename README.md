@@ -2,7 +2,7 @@
 
 ## Fonts
 
-Put `jf-openhuninn-2.1.ttf` in `~/.local/share/fonts`, then execute `fc-cache -vf`
+Put all files in the `fonts/` folder in `~/.local/share/fonts`, then execute `fc-cache -vf`
 
 ## 2024/12: Cursor IDE in unstable channel
 

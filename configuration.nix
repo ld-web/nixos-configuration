@@ -156,6 +156,7 @@
     firefox
     evolution # emails
     ffmpeg-full
+    filezilla
     gcc
     gimp
     git
@@ -277,7 +278,7 @@
       };    
       oh-my-zsh = {
         enable = true;
-        plugins = [ "bun" "composer" "copyfile" "copybuffer" "git" "history" "symfony" "dirhistory" ];
+        plugins = [ "bun" "composer" "copyfile" "copybuffer" "git" "history" "jsontools" "symfony6" "dirhistory" ];
       };
       plugins = [
         {
