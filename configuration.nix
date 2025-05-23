@@ -4,6 +4,13 @@
 
 { config, pkgs, ... }:
 
+let
+  pinned = import (builtins.fetchTarball {
+    url = "https://github.com/nixos/nixpkgs/archive/82fb28b36d514f1424c58c709b5ee57f9dead56f.tar.gz";
+    sha256 = "1ggcs2r6p0zjf3cz5s0xs50c7g2nxji9lr8hx45blsb8j11qv29b";
+    name = "source";
+  }) { system = pkgs.system; };
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -15,6 +22,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.supportedFilesystems = [ "ntfs" ];
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -24,23 +33,31 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.enableIPv6 = false;
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.defaultLocale = "zh_TW.UTF-8";
+
+  i18n.supportedLocales = [
+    "zh_TW.UTF-8/UTF-8"
+    "C.UTF-8/UTF-8"
+    "en_US.UTF-8/UTF-8"
+    "fr_FR.UTF-8/UTF-8"
+  ];
 
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "fr_FR.UTF-8";
-    LC_IDENTIFICATION = "fr_FR.UTF-8";
-    LC_MEASUREMENT = "fr_FR.UTF-8";
-    LC_MONETARY = "fr_FR.UTF-8";
-    LC_NAME = "fr_FR.UTF-8";
-    LC_NUMERIC = "fr_FR.UTF-8";
-    LC_PAPER = "fr_FR.UTF-8";
-    LC_TELEPHONE = "fr_FR.UTF-8";
-    LC_TIME = "fr_FR.UTF-8";
+    LC_ADDRESS = "zh_TW.UTF-8";
+    LC_IDENTIFICATION = "zh_TW.UTF-8";
+    LC_MEASUREMENT = "zh_TW.UTF-8";
+    LC_MONETARY = "zh_TW.UTF-8";
+    LC_NAME = "zh_TW.UTF-8";
+    LC_NUMERIC = "zh_TW.UTF-8";
+    LC_PAPER = "zh_TW.UTF-8";
+    LC_TELEPHONE = "zh_TW.UTF-8";
+    LC_TIME = "zh_TW.UTF-8";
   };
 
   i18n.inputMethod = {
@@ -111,7 +128,9 @@
 
   # Install firefox.
   programs.firefox.enable = true;
-  programs.chromium.enable = true;
+  programs.chromium = {
+    enable = true;
+  };
   programs.nix-ld.enable = true;
   programs.steam = {
     enable = true;
@@ -147,7 +166,7 @@
     };
   in [
     unstable.bun
-    chromium
+    (pinned.chromium)
     clang
     unstable.code-cursor
     (callPackage ./dcsrs-to-pdf/default.nix {})
@@ -187,7 +206,6 @@
     (php83.withExtensions ({ enabled, all }: enabled ++ [ all.xsl ])).packages.composer
     pnpm
     postman
-    protonvpn-cli_2
     python3
     python311Packages.pip
     python311Packages.setuptools
@@ -223,8 +241,10 @@
     "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark reader
     "mlomiejdfkolichcflejclcbmpeaniij" # Ghostery
     "gphhapmejobijbbhgpjhcjognlahblep" # Gnome Shell integration
+    "iokfkfickldinmejhpfcngiocoedkpkh" # LingLook
     "ldmgbgaoglmaiblpnphffibpbfchjaeg" # New TongWenTang
     "fmkadmapgofadopljbjfkapdkoienihi" # React Developer Tools
+    "anmmhkomejbdklkhoiloeaehppaffmdf" # React Scan
     "fdnpgodccdfgofepkclnopmbnacjkbnj" # Pexels new tab images
     "gppongmhjkpfnbhagpmjfkannfbllamg" # Wappalyzer
   ];
@@ -271,6 +291,7 @@
     
       shellAliases = {
         update = "sudo nixos-rebuild switch";
+        ZH = "LANG='zh_TW.UTF-8'";
       };
       history = {
         size = 10000;
@@ -358,6 +379,8 @@
   # networking.firewall.enable = false;
   networking.firewall = {
     enable = true;
+    allowedUDPPorts = [ 51820 ];
+    checkReversePath = false; # Don't block VPN traffic
     extraCommands = ''
       iptables -I INPUT 1 -s 172.16.0.0/12 -p tcp -d 172.17.0.1 -j ACCEPT
       iptables -I INPUT 2 -s 172.16.0.0/12 -p udp -d 172.17.0.1 -j ACCEPT
