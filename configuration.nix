@@ -4,13 +4,6 @@
 
 { config, pkgs, ... }:
 
-let
-  pinned = import (builtins.fetchTarball {
-    url = "https://github.com/nixos/nixpkgs/archive/82fb28b36d514f1424c58c709b5ee57f9dead56f.tar.gz";
-    sha256 = "1ggcs2r6p0zjf3cz5s0xs50c7g2nxji9lr8hx45blsb8j11qv29b";
-    name = "source";
-  }) { system = pkgs.system; };
-in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -39,7 +32,7 @@ in
   time.timeZone = "Europe/Paris";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "zh_TW.UTF-8";
+  i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.supportedLocales = [
     "zh_TW.UTF-8/UTF-8"
@@ -49,15 +42,15 @@ in
   ];
 
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "zh_TW.UTF-8";
-    LC_IDENTIFICATION = "zh_TW.UTF-8";
-    LC_MEASUREMENT = "zh_TW.UTF-8";
-    LC_MONETARY = "zh_TW.UTF-8";
-    LC_NAME = "zh_TW.UTF-8";
-    LC_NUMERIC = "zh_TW.UTF-8";
-    LC_PAPER = "zh_TW.UTF-8";
-    LC_TELEPHONE = "zh_TW.UTF-8";
-    LC_TIME = "zh_TW.UTF-8";
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
   };
 
   i18n.inputMethod = {
@@ -79,7 +72,6 @@ in
   # GNOME
   environment.gnome.excludePackages = (with pkgs; [
     gnome-tour
-  ]) ++ (with pkgs.gnome; [
     geary # emails
     gnome-music
     epiphany # Web
@@ -166,7 +158,7 @@ in
     };
   in [
     unstable.bun
-    (pinned.chromium)
+    chromium
     clang
     unstable.code-cursor
     (callPackage ./dcsrs-to-pdf/default.nix {})
@@ -198,7 +190,7 @@ in
     lshw # Hardware information
     nodejs
     obs-studio
-    openssl_3_3
+    openssl
     openvpn
     pciutils # Programs for inspecting and manipulating configuration of PCI devices
     php83
@@ -225,10 +217,11 @@ in
   fonts = {
     enableDefaultPackages = true;
     packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "FiraCode" "Meslo" ]; })
       awesome
       corefonts
+      nerd-fonts.fira-code
       liberation_ttf
+      nerd-fonts.meslo-lg
       noto-fonts
       noto-fonts-cjk-sans
       roboto
@@ -344,17 +337,18 @@ in
   # NVIDIA Graphics
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.open = false; # Use proprietary drivers
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production;
+  hardware.nvidia.open = true; # Use NVidia open source kernel module
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.powerManagement.enable = false;
   hardware.nvidia.powerManagement.finegrained = false;
-  hardware.nvidia.prime = {
-    sync.enable = true;
-
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:1:0:0";
-  };
+  hardware.nvidia.nvidiaSettings = true;
+  #hardware.nvidia.prime = {
+  #  sync.enable = true;
+  #
+  #  intelBusId = "PCI:0:2:0";
+  #  nvidiaBusId = "PCI:1:0:0";
+  #};
 
   # To make Chromium work on Wayland
   # environment.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -396,3 +390,4 @@ in
   system.stateVersion = "24.05"; # Did you read the comment?
 
 }
+
