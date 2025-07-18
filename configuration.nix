@@ -89,6 +89,8 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  hardware.bluetooth.powerOnBoot = false;
+
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -149,7 +151,9 @@
         xsl
       ]));
       extraConfig = ''
+        short_open_tag = 0
         post_max_size = 2G
+        memory_limit = 8G
         upload_max_filesize = 1800M
         xdebug.start_with_request=yes
         xdebug.mode=develop,debug,coverage
@@ -182,12 +186,14 @@
     gnomeExtensions.color-picker
     graphviz
     httpie
+    hyperfine # CLI benchmarking tool
     imagemagick
     inxi # System information tool
     jq
     kdePackages.kdenlive
     libreoffice-fresh
     lshw # Hardware information
+    microsoft-edge
     nodejs
     obs-studio
     openssl
@@ -343,12 +349,12 @@
   hardware.nvidia.powerManagement.enable = false;
   hardware.nvidia.powerManagement.finegrained = false;
   hardware.nvidia.nvidiaSettings = true;
-  #hardware.nvidia.prime = {
-  #  sync.enable = true;
-  #
-  #  intelBusId = "PCI:0:2:0";
-  #  nvidiaBusId = "PCI:1:0:0";
-  #};
+  hardware.nvidia.prime = {
+    sync.enable = true;
+  
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:1:0:0";
+  };
 
   # To make Chromium work on Wayland
   # environment.sessionVariables.NIXOS_OZONE_WL = "1";
