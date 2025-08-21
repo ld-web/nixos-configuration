@@ -145,7 +145,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs;
   let
-    php83 = pkgs.php83.buildEnv {
+    php = pkgs.php.buildEnv {
       extensions = ({ enabled, all }: enabled ++ (with all; [
         xdebug
         xsl
@@ -195,13 +195,14 @@
     lshw # Hardware information
     microsoft-edge
     nodejs
+    nushell
     obs-studio
     openssl
     openvpn
     pciutils # Programs for inspecting and manipulating configuration of PCI devices
-    php83
-    # php83Packages.composer
-    (php83.withExtensions ({ enabled, all }: enabled ++ [ all.xsl ])).packages.composer
+    php
+    # phpPackages.composer
+    (php.withExtensions ({ enabled, all }: enabled ++ [ all.xsl ])).packages.composer
     pnpm
     postman
     python3
