@@ -86,6 +86,18 @@
   # Configure console keymap
   console.keyMap = "fr";
 
+  # Ollama
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
+
+  # Open Web UI
+  services.open-webui = {
+    enable = true;
+    port = 9543;
+  };
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -347,11 +359,12 @@
   hardware.nvidia.open = true; # Use NVidia open source kernel module
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.powerManagement.enable = false;
-  hardware.nvidia.powerManagement.finegrained = false;
+  hardware.nvidia.powerManagement.enable = true;
+  hardware.nvidia.powerManagement.finegrained = true;
   hardware.nvidia.nvidiaSettings = true;
   hardware.nvidia.prime = {
-    sync.enable = true;
+    #sync.enable = true;
+    offload.enable = true;
   
     intelBusId = "PCI:0:2:0";
     nvidiaBusId = "PCI:1:0:0";
