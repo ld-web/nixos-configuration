@@ -14,6 +14,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
 
   boot.supportedFilesystems = [ "ntfs" ];
 
@@ -54,7 +55,8 @@
   };
 
   i18n.inputMethod = {
-    enabled = "fcitx5";
+    enable = true;
+    type = "fcitx5";
     fcitx5.addons = with pkgs; [
       fcitx5-gtk
       fcitx5-chewing
@@ -66,8 +68,8 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # GNOME
   environment.gnome.excludePackages = (with pkgs; [
@@ -104,7 +106,7 @@
   hardware.bluetooth.powerOnBoot = false;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -155,7 +157,7 @@
 
   # Insecure packages
   nixpkgs.config.permittedInsecurePackages = [
-    "beekeeper-studio-5.3.4"
+    "beekeeper-studio-5.5.7"
   ];
 
   # List packages installed in system profile. To search, run:
@@ -179,6 +181,7 @@
     };
   in [
     unstable.beekeeper-studio
+    brave
     unstable.bun
     chromium
     clang
@@ -212,8 +215,9 @@
     unstable.laravel
     libreoffice-fresh
     lshw # Hardware information
+    mailpit
     microsoft-edge
-    nodejs
+    nodejs_24
     nushell
     obs-studio
     openssl
@@ -228,6 +232,7 @@
     python311Packages.pip
     python311Packages.setuptools
     rustup
+    tesseract
     unstable.symfony-cli
     vesktop
     vim
