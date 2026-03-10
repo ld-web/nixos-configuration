@@ -232,6 +232,7 @@
     python311Packages.pip
     python311Packages.setuptools
     rustup
+    stripe-cli
     tesseract
     unstable.symfony-cli
     vesktop
@@ -267,6 +268,7 @@
     "gphhapmejobijbbhgpjhcjognlahblep" # Gnome Shell integration
     "iokfkfickldinmejhpfcngiocoedkpkh" # LingLook
     "ldmgbgaoglmaiblpnphffibpbfchjaeg" # New TongWenTang
+    "ghmbeldphafepmbegfdlkpapadhbakde" # Proton Pass
     "fmkadmapgofadopljbjfkapdkoienihi" # React Developer Tools
     "anmmhkomejbdklkhoiloeaehppaffmdf" # React Scan
     "fdnpgodccdfgofepkclnopmbnacjkbnj" # Pexels new tab images
@@ -316,6 +318,7 @@
       shellAliases = {
         update = "sudo nixos-rebuild switch";
         ZH = "LANG='zh_TW.UTF-8'";
+        sail = "./vendor/bin/sail";
       };
       history = {
         size = 10000;
