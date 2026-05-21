@@ -374,15 +374,14 @@
   hardware.nvidia.open = true; # Use NVidia open source kernel module
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.powerManagement.enable = true;
-  hardware.nvidia.powerManagement.finegrained = true;
+  #hardware.nvidia.powerManagement.enable = true;
+  #hardware.nvidia.powerManagement.finegrained = true;
   hardware.nvidia.nvidiaSettings = true;
   hardware.nvidia.prime = {
-    #sync.enable = true;
-    offload.enable = true;
-  
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:1:0:0";
+    reverseSync.enable = true;
+      
+    intelBusId = "PCI:0@0:2:0";
+    nvidiaBusId = "PCI:1@0:0:0";
   };
 
   # To make Chromium work on Wayland
