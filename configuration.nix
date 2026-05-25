@@ -236,7 +236,6 @@
     stripe-cli
     tesseract
     unstable.symfony-cli
-    vesktop
     vim
     vlc
     unstable.vscode
