@@ -303,7 +303,7 @@
   #hardware.nvidia.powerManagement.finegrained = true;
   hardware.nvidia.nvidiaSettings = true;
   hardware.nvidia.prime = {
-    reverseSync.enable = true;
+    sync.enable = true;
       
     intelBusId = "PCI:0@0:2:0";
     nvidiaBusId = "PCI:1@0:0:0";
