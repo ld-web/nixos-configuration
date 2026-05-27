@@ -2,13 +2,17 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, unstable, ... }:
+{ inputs, config, pkgs, unstable, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+
+    nix.registry = {
+      unstable.flake = inputs.nixpkgs-unstable;
+    };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -215,6 +219,7 @@
     kdePackages.kdenlive
     unstable.laravel
     libreoffice-fresh
+    unstable.liteparse # Parse PDF and Office files
     lshw # Hardware information
     mailpit
     microsoft-edge
