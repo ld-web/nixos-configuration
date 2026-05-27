@@ -2,17 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, unstable, ... }:
+{ config, pkgs, unstable, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
-
-    nix.registry = {
-      unstable.flake = inputs.nixpkgs-unstable;
-    };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -210,6 +206,7 @@
     gnomeExtensions.notification-timeout
     gnomeExtensions.panel-world-clock-lite
     gnomeExtensions.color-picker
+    unstable.gnomeExtensions.weatherpanel
     graphviz
     httpie
     hyperfine # CLI benchmarking tool

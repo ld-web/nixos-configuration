@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, unstable, ... }: {
   # GNOME Extensions
   dconf = {
     enable = true;
@@ -14,6 +14,7 @@
         notification-timeout.extensionUuid
         panel-world-clock-lite.extensionUuid
         color-picker.extensionUuid
+        unstable.gnomeExtensions.weatherpanel.extensionUuid
       ];
     };
     settings."org/gnome/settings-daemon/plugins/media-keys" = {
