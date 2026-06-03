@@ -245,6 +245,7 @@
     vim
     vlc
     unstable.vscode
+    whatweb # Web app stack detection CLI tool
     wget
     yarn-berry
     zsh
