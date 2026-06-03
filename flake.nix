@@ -22,7 +22,7 @@
         ./configuration.nix
         {
           _module.args = {
-            inherit unstable;
+            inherit unstable inputs;
           };
         }
         home-manager.nixosModules.home-manager
