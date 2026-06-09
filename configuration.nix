@@ -211,6 +211,7 @@
     gnomeExtensions.panel-world-clock-lite
     gnomeExtensions.color-picker
     unstable.gnomeExtensions.weatherpanel
+    gnumake # "make" utility
     graphviz
     httpie
     hyperfine # CLI benchmarking tool
@@ -226,6 +227,7 @@
     microsoft-edge
     nodejs_24
     nushell
+    nvitop # Monitor NVidia graphic card
     obs-studio
     openssl
     openvpn
@@ -295,6 +297,7 @@
 
   # Docker
   virtualisation.docker.enable = true;
+  virtualisation.docker.package = pkgs.docker_29;
   #virtualisation.docker.rootless = {
   #  enable = true;
   #  setSocketVariable = true;
