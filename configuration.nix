@@ -17,6 +17,16 @@
 
   boot.supportedFilesystems = [ "ntfs" ];
 
+  systemd.services.set-pci-power = {
+    description = "Set NVIDIA power control to on at boot";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.bash}/bin/bash -c 'echo on > /sys/bus/pci/devices/0000:01:00.0/power/control'";
+    };
+  };
+
   nix.registry = {
     unstable.flake = inputs.nixpkgs-unstable;
   };
@@ -310,7 +320,7 @@
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   hardware.nvidia.modesetting.enable = true;
   #hardware.nvidia.powerManagement.enable = true;
-  #hardware.nvidia.powerManagement.finegrained = true;
+  #hardware.nvidia.powerManagement.finegrained = false;
   hardware.nvidia.nvidiaSettings = true;
   hardware.nvidia.prime = {
     sync.enable = true;
