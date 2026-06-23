@@ -104,7 +104,7 @@
   # Ollama
   services.ollama = {
     enable = true;
-    acceleration = "cuda";
+    package = pkgs.ollama-cuda;
   };
 
   # Open Web UI
@@ -248,9 +248,10 @@
     pnpm
     postman
     python3
-    python311Packages.pip
-    python311Packages.setuptools
+    python313Packages.pip
+    python313Packages.setuptools
     rustup
+    shotcut # Video editing
     stripe-cli
     tesseract
     unstable.symfony-cli
