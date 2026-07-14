@@ -235,6 +235,7 @@
     lshw # Hardware information
     mailpit
     microsoft-edge
+    nix-init
     nodejs_24
     nushell
     nvitop # Monitor NVidia graphic card
@@ -261,6 +262,7 @@
     whatweb # Web app stack detection CLI tool
     wget
     yarn-berry
+    (callPackage ./zi-qiang/default.nix {})
     zsh
     zsh-powerlevel10k
   ];
