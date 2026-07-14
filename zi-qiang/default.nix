@@ -2,26 +2,24 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zi-qiang";
-  version = "unstable-2026-07-14";
+  version = "0-unstable-2026-07-14";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "ld-web";
     repo = "zi-qiang";
-    rev = "1fa27a4017b8910f6e934f68c1ff42a1a501244a";
-    hash = "sha256-asKoL5LpyywqJIjR3RoAabkdvelybBwrEU5xup9SAXw=";
+    rev = "2ec793f505d5f4119018debad3731a28ba9c7943";
+    hash = "sha256-zHMw8t5S71MIwXeb9Mn0uTSQ0fieiE0ZPC4FWbA0CRM=";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoHash = "sha256-LDHifOvRPVUF3FkOzXao+0SUCpL3OJa0xKiKUwYjKpY=";
 
-  postInstall = ''
-    ln -s zh_wallpaper $out/bin/zi-qiang
-  '';
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Chinese words wallpaper rotation";
@@ -30,4 +28,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with lib.maintainers; [ ];
     mainProgram = "zi-qiang";
   };
-}
+})
