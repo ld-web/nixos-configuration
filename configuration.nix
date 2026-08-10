@@ -181,6 +181,7 @@
   let
     php = pkgs.php.buildEnv {
       extensions = ({ enabled, all }: enabled ++ (with all; [
+        imagick
         xdebug
         xsl
       ]));
@@ -195,6 +196,7 @@
       '';
     };
   in [
+    anydesk
     unstable.beekeeper-studio
     brave
     unstable.bun
@@ -252,7 +254,6 @@
     python313Packages.pip
     python313Packages.setuptools
     rustup
-    shotcut # Video editing
     stripe-cli
     tesseract
     unstable.symfony-cli
