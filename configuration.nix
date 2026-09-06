@@ -172,7 +172,7 @@
 
   # Insecure packages
   nixpkgs.config.permittedInsecurePackages = [
-    "beekeeper-studio-5.5.7"
+    "beekeeper-studio-5.7.3"
   ];
 
   # List packages installed in system profile. To search, run:
@@ -197,7 +197,7 @@
     };
   in [
     anydesk
-    unstable.beekeeper-studio
+    beekeeper-studio
     brave
     unstable.bun
     chromium
