@@ -259,7 +259,7 @@
     unstable.symfony-cli
     vim
     vlc
-    unstable.vscode
+    vscode
     whatweb # Web app stack detection CLI tool
     wget
     yarn-berry
